@@ -11,12 +11,18 @@ class App extends Component {
       data: null,
       newData: ''
     };
+      
+    //this.dataRef = null;
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
   componentDidMount() {
+      
+    //this.dataRef = database.ref('/WOWOWO/lololo/hehehe');
+
     database.ref('/').on('value', (snapshot) => {
       // console.log('THE DATA CHANGED', snapshot.val());
       this.setState({
@@ -25,16 +31,22 @@ class App extends Component {
     });
   }
 
+
   handleSubmit(event) {
     event.preventDefault();
 
-    const newData = database.ref()
-      .child('amazing new data')
-      .set(this.state.newData);
+    database.ref('/amazing new data')
+      // .child('amazing new data')
+      .push(this.state.newData);
+
+     this.setState({
+      newData: ''
+    });
   }
 
   handleChange(event) {
     const newData = event.target.value;
+    
     this.setState({
       newData: newData
     });
